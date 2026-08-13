@@ -1,0 +1,17 @@
+# Kokoro TTS server runtime dependencies.
+#
+# NOTE: torch + torchaudio must be installed first and MUST be compatible with
+# each other (they are released in lockstep). On Apple Silicon both ship as
+# pre-built wheels via PyPI. On CUDA hosts install the matching torchaudio wheel
+# for your torch build (see https://pytorch.org).
+torch>=2.3
+torchaudio>=2.3
+
+# Kokoro + Hindi G2P (espeak-ng is bundled by espeakng-loader)
+kokoro==0.9.4
+misaki==0.9.4
+
+# Web framework
+fastapi>=0.115
+uvicorn[standard]>=0.30
+pydantic-settings>=2.4
