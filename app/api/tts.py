@@ -49,8 +49,8 @@ def get_limiter(request: Request) -> ConcurrencyLimiter:
 
 
 def _resolve_request_id(body: TTSRequest, request: Request) -> str:
-    """Correlation id: explicit body field, then header, then generated."""
-    return body.request_id or request.headers.get("x-request-id") or new_request_id()
+    """Correlation id: explicit body field, then header, then middleware's."""
+    return body.request_id or request.headers.get("x-request-id") or get_request_id() or new_request_id()
 
 
 def _validate_language(language: str | None, provider: TTSProvider) -> None:

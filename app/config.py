@@ -44,8 +44,23 @@ class Settings(BaseSettings):
 
     @property
     def supported_language_aliases(self) -> set[str]:
-        """Accepted values for the request ``language`` field."""
-        return {"h", "hi"}
+        """Accepted values for the request ``language`` field.
+
+        Derived from :attr:`LANG_CODE` so requests can use either the Kokoro
+        single-letter code or a human-friendly alias.
+        """
+        aliases: dict[str, set[str]] = {
+            "a": {"a", "en", "en-us"},
+            "b": {"b", "en", "en-gb"},
+            "h": {"h", "hi"},
+            "e": {"e", "es"},
+            "f": {"f", "fr", "fr-fr"},
+            "i": {"i", "it"},
+            "p": {"p", "pt", "pt-br"},
+            "j": {"j", "ja"},
+            "z": {"z", "zh"},
+        }
+        return aliases.get(self.LANG_CODE, {self.LANG_CODE})
 
 
 @lru_cache
